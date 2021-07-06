@@ -1,0 +1,21 @@
+{#一个表单有三个基本组成部分， 表单标签：这里面包含了处理表单数据所用URL以及数据提交到服务器的方法；#}
+{# 表单域包含了文本框，单选框等； 表单按钮：包括提交按钮、复位按钮等。#}
+
+{#模板给每个选项展示一个按钮。按钮的key是choice，value为选项的id，意味着当某个人选择该选项并提交时，会发送choice=id给到后端。#}
+{#表单的标签表示这是一个post请求，并请求到了后端的polls:vote方法。#}
+{#为了防止跨域攻击，需要加上{% csrf_token %}#}
+
+
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ question.question_text }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+</fieldset>
+<input type="submit" value="Vote">
+</form>

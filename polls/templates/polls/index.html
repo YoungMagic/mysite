@@ -1,0 +1,25 @@
+{#模板包含了网页中的静态元素及动态变量。#}
+{#在polls路径下创建templates/polls/文件夹，并创建 index.html 文件#}
+
+
+
+{#模板基本语法：#}
+{#1. 变量#}
+{#由{{ and }}包括#}
+{#2. 标签#}
+{#标签在渲染过程中提供逻辑。#}
+{#{% if user.is_authenticated %}#}
+{#Hello, {{ user.username }}.#}
+{#{% endif %}#}
+{#3. 注释#}
+{# this won't be rendered #}
+
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
