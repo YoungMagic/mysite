@@ -17,14 +17,14 @@ from .models import Question, Choice
 logger = logging.getLogger(__name__)
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
 # def index(request):
-#     # 排序时用-号表示倒叙
-#     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-#     context = {'latest_question_list': latest_question_list}
-#     return render(request, 'polls/index.html', context)
+#     return HttpResponse("Hello, world. You're at the polls index.")
+
+def index(request):
+    # 排序时用-号表示倒叙
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    context = {'latest_question_list': latest_question_list}
+    return render(request, 'polls/index.html', context)
 
 
 
