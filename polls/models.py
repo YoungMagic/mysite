@@ -11,8 +11,19 @@ class Question(models.Model):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date
 
+    def __str__(self):
+        return self.question_text
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.choice_text
+
+
+class User(models.Model):
+    user_name = models.CharField(max_length=64)
+    choice = models.ManyToManyField(Choice)

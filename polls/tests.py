@@ -6,7 +6,7 @@ import datetime
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
-from .models import Question
+from .models import Question, Choice
 
 
 class QuestionModelTests(TestCase):
@@ -31,7 +31,25 @@ class QuestionIndexViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No polls are available.")
 
+class QuestionQueryTests(TestCase):
+    def testValues(self):
+        question = create_question("你好吗", 0)
+        create_choice("不错", question)
+        # 通过question筛选choice
+        bucuo = Question.objects.filter(choice__choice_text="不错")
+        # 通过choice筛选question
+        hello = Choice.objects.filter(question__question_text="你好吗")
+        hello = Choice.objects.filter(question__choice__choice_text="你好吗")
+        # values = Question.objects.values(question_text="hah")
+        return
+
 
 def create_question(question_text, days):
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date=time)
+
+
+def create_choice(choice_text, question):
+    choice = Choice.objects.create(question_id=question.id, choice_text=choice_text)
+    question.choice = choice
+    question.save()
