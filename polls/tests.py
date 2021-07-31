@@ -36,10 +36,10 @@ class QuestionQueryTests(TestCase):
         question = create_question("你好吗", 0)
         create_choice("不错", question)
         # 通过question筛选choice
-        bucuo = Question.objects.filter(choice__choice_text="不错")
+        q = Question.objects.filter(choice__choice_text="Yes")
         # 通过choice筛选question
-        hello = Choice.objects.filter(question__question_text="你好吗")
-        hello = Choice.objects.filter(question__choice__choice_text="你好吗")
+        c = Choice.objects.filter(question__question_text="Anyone?")
+        hello = Choice.objects.filter(question__choice__choice_text="Y")
         # values = Question.objects.values(question_text="hah")
         return
 
