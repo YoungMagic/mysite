@@ -9,6 +9,7 @@ app_name = 'polls'
 
 urlpatterns = [
     # ex: /polls/
+    # 请将视图函数和路由绑定
 
     # ex: /polls/5/
     # path('<int:question_id>/', views.detail, name='detail'),
